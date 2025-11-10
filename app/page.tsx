@@ -3,6 +3,7 @@
 import { HeroSection } from "@/components/hero-section";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { FoodList } from "@/features/food-list/components/food-list";
 import { useDebounce } from "@/lib/hooks/useDebounce";
 import { useState } from "react";
 
@@ -18,6 +19,7 @@ export default function Home() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
+      <FoodList />
       <Footer />
     </div>
   );
