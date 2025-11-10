@@ -1,6 +1,7 @@
 "use client";
 
 import { HeroSection } from "@/components/hero-section";
+import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { useDebounce } from "@/lib/hooks/useDebounce";
 import { useState } from "react";
@@ -17,6 +18,7 @@ export default function Home() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
+      <Footer />
     </div>
   );
 }
