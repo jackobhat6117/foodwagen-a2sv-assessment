@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
       "
     >
       <div className="food-header-logo flex items-center gap-2">
-        <Image src="/assets/MasK-Group.png" width={20} height={20} alt="" />
+        <Image src="/assets/header-logo.png" width={20} height={20} alt="" />
         <p className="text-lg font-bold text-[#F96222]">
           Food<span className="text-[#FFB310]">Wagen</span>
         </p>
