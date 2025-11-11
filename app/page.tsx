@@ -9,20 +9,39 @@ import { useDebounce } from "@/lib/hooks/useDebounce";
 import { useState } from "react";
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("");
+const [searchInput, setSearchInput] = useState("");
+  
+  const [submittedSearch, setSubmittedSearch] = useState("");
 
-  // 2. State for the *debounced* value (waits 500ms after user stops typing)
-  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+  const handleSearchSubmit = () => {
+    setSubmittedSearch(searchInput);
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchInput(query);
+    
+
+    if (query === "") {
+      setSubmittedSearch("");
+    }
+  };
+ 
   return (
     <div className="">
      <Header />
-      <HeroSection
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
+     <HeroSection
+        searchQuery={searchInput}
+        setSearchQuery={handleSearchChange}
+        onSubmitSearch={handleSearchSubmit} 
       />
-      <FoodList />
+      <FoodList 
+        searchTerm={submittedSearch} 
+      />
       <Footer />
        <FoodModal />
     </div>
   );
 }
+
+

@@ -1,53 +1,74 @@
-"use client"
+// src/features/food-list/components/FoodList.tsx
 
-import type React from "react"
-import { useState, useCallback } from "react"
-import { useFoodStore } from "@/lib/store/foodStore"
-import { Button } from "@/components/ui/button"
-import { useGetFoods } from "../hooks/useGetFoods"
-import { FoodCard } from "./food-card"
+"use client";
+
+import type React from "react";
+import { useState, useCallback, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { useGetFoods } from "../hooks/useGetFoods";
+import { FoodCard } from "./food-card";
 import { ChevronRight } from 'lucide-react';
+import { CleanFood } from "@/types/types";
+import { useFoodStore } from "@/lib/store/foodStore";
 
-export const FoodList: React.FC = () => {
-  const { openEditModal, openDeleteModal, searchQuery } = useFoodStore()
-  const { foods, isLoading, error } = useGetFoods(searchQuery)
-  const [displayCount, setDisplayCount] = useState(8)
 
-  const displayedFoods = foods.slice(0, displayCount)
-  const hasMore = displayCount < foods.length
+
+interface FoodListProps {
+  searchTerm: string;
+}
+
+export const FoodList: React.FC<FoodListProps> = ({ searchTerm }) => {
+ 
+  const { openEditModal, openDeleteModal } = useFoodStore();
+  
+
+  const { foods, isLoading, error } = useGetFoods(searchTerm);
+  
+  const [displayCount, setDisplayCount] = useState(8);
+
+ 
+  useEffect(() => {
+    setDisplayCount(8);
+  }, [searchTerm]);
+
+  const displayedFoods = foods.slice(0, displayCount);
+  const hasMore = displayCount < foods.length;
 
   const handleLoadMore = useCallback(() => {
-    setDisplayCount((prev) => prev + 8)
-  }, [])
+    setDisplayCount((prev) => prev + 8);
+  }, []);
 
-  if (isLoading && displayedFoods.length === 0) {
+
+  if (isLoading) {
     return (
       <section className="food-featured-meals" data-test-id="food-featured-meals">
-        <h2 style={{ textAlign: "center" }}>Loading meals...</h2>
+        <h2 style={{ textAlign: "center" }} data-test-id="food-list-loading">
+          Loading meals...
+        </h2>
       </section>
-    )
+    );
   }
 
   if (error) {
     return (
       <section className="food-featured-meals" data-test-id="food-featured-meals">
-        <div className="empty-state-message">
+        <div className="empty-state-message" data-test-id="food-list-error">
           <h2>Error loading meals</h2>
           <p>{error}</p>
         </div>
       </section>
-    )
+    );
   }
 
   if (displayedFoods.length === 0) {
     return (
       <section className="food-featured-meals" data-test-id="food-featured-meals">
-        <div className="empty-state-message">
+        <div className="empty-state-message" data-test-id="food-list-empty">
           <h2>No items available</h2>
           <p>Try searching for different meals</p>
         </div>
       </section>
-    )
+    );
   }
 
   return (
@@ -65,7 +86,7 @@ export const FoodList: React.FC = () => {
         </h2>
 
         <div className="food-grid">
-          {displayedFoods.map((food:any) => (
+          {displayedFoods.map((food: CleanFood) => ( 
             <FoodCard
               key={food.id}
               food={food}
@@ -84,7 +105,7 @@ export const FoodList: React.FC = () => {
         )}
       </div>
     </section>
-  )
-}
+  );
+};
 
-FoodList.displayName = "FoodList"
+FoodList.displayName = "FoodList";

@@ -1,29 +1,24 @@
+
+
 "use client";
 
-import { Food } from "@/types/types"; // Using your type path
+
 import type React from "react";
-// Import new state hooks and icons
 import { useState, useRef, useEffect } from "react";
-import { Tag, MoreVertical, Edit, Trash2 } from "lucide-react";
+import { Tag, MoreVertical, Edit, Trash2 } from 'lucide-react';
+import { CleanFood } from "@/types/types";
 
 interface FoodCardProps {
-  food: Food;
-  onEdit: (food: Food) => void;
-  onDelete: (food: Food) => void;
+  food: CleanFood; 
+  onEdit: (food: CleanFood) => void;
+  onDelete: (food: CleanFood) => void;
 }
 
-export const FoodCard: React.FC<FoodCardProps> = ({
-  food,
-  onEdit,
-  onDelete,
-}) => {
+export const FoodCard: React.FC<FoodCardProps> = ({ food, onEdit, onDelete }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const formattedPrice = food.Price
-    ? `$${parseFloat(food.Price as any).toFixed(2)}`
-    : "N/A";
-
+ 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -34,7 +29,6 @@ export const FoodCard: React.FC<FoodCardProps> = ({
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -47,21 +41,18 @@ export const FoodCard: React.FC<FoodCardProps> = ({
 
   const handleDelete = () => {
     onDelete(food);
-    setIsMenuOpen(false); 
+    setIsMenuOpen(false);
   };
+
+ 
+  const formattedPrice = `$${food.Price.toFixed(2)}`;
 
   return (
     <article className="food-card" data-test-id={`food-card-${food.id}`}>
       <div className="food-card-image-wrapper">
-        <img
-          src={food.image || "/placeholder.svg"}
-          alt={food.name}
-          className="food-card-image"
-          loading="lazy"
-        />
-        <span className="food-card-price">
-          <Tag size={14} />
-          {formattedPrice}
+        <img src={food.image || "/placeholder.svg"} alt={food.name} className="food-card-image" loading="lazy" />
+        <span className="food-card-price" data-test-id="food-card-price">
+          <Tag size={14} />{formattedPrice}
         </span>
       </div>
 
@@ -77,18 +68,14 @@ export const FoodCard: React.FC<FoodCardProps> = ({
             />
           )}
           <div className="food-card-restaurant-info">
-            <p className="food-card-restaurant-name">
-              {food.restaurant?.name || "Unknown Restaurant"}
-            </p>
+            <p className="food-card-restaurant-name">{food.restaurant?.name || "Unknown Restaurant"}</p>
             <span className="food-card-rating">⭐ {food.rating}</span>
           </div>
         </div>
 
         <div className="food-card-status-bar">
           <span
-            className={`food-card-status ${
-              food.restaurant?.status === "Open Now" ? "open" : "closed"
-            }`}
+            className={`food-card-status ${food.restaurant?.status === "Open Now" ? "open" : "closed"}`}
             data-test-id={`food-status-${food.id}`}
           >
             {food.restaurant?.status || "Unknown"}
@@ -104,7 +91,6 @@ export const FoodCard: React.FC<FoodCardProps> = ({
           >
             <MoreVertical size={18} />
           </button>
-
 
           {isMenuOpen && (
             <div
@@ -128,7 +114,6 @@ export const FoodCard: React.FC<FoodCardProps> = ({
             </div>
           )}
         </div>
-     
       </div>
     </article>
   );

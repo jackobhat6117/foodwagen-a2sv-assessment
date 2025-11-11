@@ -1,18 +1,23 @@
+//hero-section.tsx
 "use client";
 
 import React, { useState } from "react";
 import { SearchBar } from "./search-bar";
-import { Motorbike, Store } from "lucide-react";
+import { Motorbike, Store } from "lucide-react"; 
 import Image from "next/image";
+
+
 
 interface HeroSectionProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  onSubmitSearch: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   searchQuery,
   setSearchQuery,
+  onSubmitSearch, 
 }) => {
   const [deliveryType, setDeliveryType] = useState<"delivery" | "pickup">(
     "delivery",
@@ -66,6 +71,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <SearchBar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
+              onSubmitSearch={onSubmitSearch}
             />
           </div>
         </div>
@@ -97,3 +103,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 };
 
 HeroSection.displayName = "HeroSection";
+
+
+
+
+
+

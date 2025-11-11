@@ -1,17 +1,21 @@
-const BASE_URL = "https://6852821e0594059b23cdd834.mockapi.io"
+import { ApiFood } from "@/types/types";
+
+
+const BASE_URL = "https://6852821e0594059b23cdd834.mockapi.io";
 
 export const apiClient = {
-  async getFoods() {
-    const response = await fetch(`${BASE_URL}/Food`)
-    if (!response.ok) throw new Error("Failed to fetch foods")
-    return response.json()
+  async getFoods(): Promise<ApiFood[]> {
+    const response = await fetch(`${BASE_URL}/Food`);
+    if (!response.ok) throw new Error("Failed to fetch foods");
+    return response.json();
   },
 
-  async searchFoods(searchParam: string) {
-    const response = await fetch(`${BASE_URL}/Food?name=${searchParam}`)
-    if (!response.ok) throw new Error("Failed to search foods")
-    return response.json()
+  async searchFoods(searchParam: string): Promise<ApiFood[]> {
+    const response = await fetch(`${BASE_URL}/Food?name=${searchParam}`);
+    if (!response.ok) throw new Error("Failed to search foods");
+    return response.json();
   },
+
 
   async createFood(data: any) {
     const response = await fetch(`${BASE_URL}/Food`, {
