@@ -55,7 +55,7 @@ const normalizeApiData = (apiData: ApiItem[]): Food[] => {
       return {
         id: item.id,
         name: item.food_name || item.name,
-        price: item.price || parseFloat(item.Price) || 0,
+        Price: item.price || parseFloat(item.Price) || 0,
         rating: item.food_rating || (typeof item.rating === 'number' ? item.rating : parseFloat(item.rating as string) || 0),
         image: item.food_image || item.image || item.avatar,
         createdAt: item.createdAt,
@@ -87,7 +87,7 @@ const normalizeApiData = (apiData: ApiItem[]): Food[] => {
       return {
         id: item.id,
         name: item.name,
-        price: parseFloat(item.Price) || 0,
+        Price: parseFloat(item.Price) || 0,
         rating: typeof item.rating === 'number' ? item.rating : parseFloat(item.rating as string) || 0,
         image: item.image || item.avatar,
         createdAt: item.createdAt,

@@ -4,11 +4,12 @@
 import type React from "react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { useFoodStore } from "@/lib/store/foodStore"
 
 export const Header: React.FC = () => {
-  const openAddModal = () => {
-    console.log('open modal test')
-  }
+
+     const { openAddModal } = useFoodStore()
+  
 
   return (
     <header className="food-header">
@@ -24,3 +25,5 @@ export const Header: React.FC = () => {
 }
 
 Header.displayName = "Header"
+
+

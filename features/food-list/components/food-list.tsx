@@ -6,6 +6,7 @@ import { useFoodStore } from "@/lib/store/foodStore"
 import { Button } from "@/components/ui/button"
 import { useGetFoods } from "../hooks/useGetFoods"
 import { FoodCard } from "./food-card"
+import { ChevronRight } from 'lucide-react';
 
 export const FoodList: React.FC = () => {
   const { openEditModal, openDeleteModal, searchQuery } = useFoodStore()
@@ -77,7 +78,7 @@ export const FoodList: React.FC = () => {
         {hasMore && (
           <div style={{ textAlign: "center", marginTop: "48px" }}>
             <Button variant="primary" onClick={handleLoadMore} isLoading={isLoading} data-test-id="food-load-more-btn">
-              Load more
+              Load more <span><ChevronRight /></span>
             </Button>
           </div>
         )}

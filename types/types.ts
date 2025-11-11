@@ -23,7 +23,7 @@ export interface Restaurant {
 export interface Food {
   id: string;
   name: string;
-  price: number;
+  Price: number;
   rating: number;
   image: string;
   restaurant?: Restaurant;
