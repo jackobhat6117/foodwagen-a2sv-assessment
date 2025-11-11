@@ -88,7 +88,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               }}
             ></div>
             <Image 
-              src="/assets/image-Base.png"
+              src="/public/assets/image-Base.png"
               width={400}
               height={400}
               alt="hero-pan-image"
