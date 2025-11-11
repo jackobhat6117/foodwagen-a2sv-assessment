@@ -748,20 +748,23 @@
   margin-bottom: 1rem; 
 }
 
-.food-label {
+.food-label-visible {
   font-size: 0.875rem; 
   font-weight: 500;
-  color: #9E9E9E; 
-  position: static;
-  width: auto;
-  height: auto;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
+  color: #9E9E9E;
+  margin-bottom: 0.25rem;
 }
-
+.food-label-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 .food-input {
   width: 100%;
   background-color: #ffffff;

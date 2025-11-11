@@ -1,12 +1,13 @@
 // Zustand store for managing foods and UI state
-import { ApiItem, Food, FoodModalState } from "@/types/types";
+
+import { ApiFood, CleanFood, FoodModalState } from "@/types/types";
 import { create } from "zustand";
 
 
 interface FoodStoreState {
   // Data
-  foods: Food[];
-  filteredFoods: Food[];
+  foods: CleanFood[];
+  filteredFoods: CleanFood[];
   searchQuery: string;
   isLoading: boolean;
   error: string | null;
@@ -15,24 +16,24 @@ interface FoodStoreState {
   modal: FoodModalState;
 
   // Actions
-  setFoods: (foods: Food[]) => void;
-  setFilteredFoods: (foods: Food[]) => void;
+  setFoods: (foods: CleanFood[]) => void;
+  setFilteredFoods: (foods: CleanFood[]) => void;
   setSearchQuery: (query: string) => void;
   setIsLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 
   // API data processing
-  processApiData: (apiData: ApiItem[]) => void;
+  processApiData: (apiData: ApiFood[]) => void;
 
   // Modal actions
   openAddModal: () => void;
-  openEditModal: (food: Food) => void;
-  openDeleteModal: (food: Food) => void;
+  openEditModal: (food: CleanFood) => void;
+  openDeleteModal: (food: CleanFood) => void;
   closeModal: () => void;
 
   // Food operations
-  addFood: (food: Food) => void;
-  updateFood: (id: string, food: Food) => void;
+  addFood: (food: CleanFood) => void;
+  updateFood: (id: string, food: CleanFood) => void;
   deleteFood: (id: string) => void;
 
   // Reset
@@ -44,70 +45,38 @@ const initialModalState: FoodModalState = {
   mode: "add",
 };
 
-// Helper function to normalize API data to Food type
-const normalizeApiData = (apiData: ApiItem[]): Food[] => {
-  return apiData.map((item): Food => {
-    // Determine if this is primarily a food item or restaurant
-    const hasFoodData = item.food_name || item.food_image;
+
+const normalizeApiData = (apiData: ApiFood[]): CleanFood[] => {
+  return apiData.map((raw): CleanFood => {
+
+    const price = parseFloat((raw.Price || raw.price || 0) as string);
     
-    if (hasFoodData) {
-      // This appears to be a food item with restaurant context
-      return {
-        id: item.id,
-        name: item.food_name || item.name,
-        Price: item.price || parseFloat(item.Price) || 0,
-        rating: item.food_rating || (typeof item.rating === 'number' ? item.rating : parseFloat(item.rating as string) || 0),
-        image: item.food_image || item.image || item.avatar,
-        createdAt: item.createdAt,
-        
-        // Restaurant context
-        restaurant: item.restaurant_name ? {
-          id: item.id,
-          name: item.restaurant_name,
-          logo: item.restaurant_logo || item.logo,
-          status: item.restaurant_status || (item.open ? "Open Now" : "Closed"),
-          image: item.restaurant_image
-        } : undefined,
-        
-        // Additional fields
-        avatar: item.avatar,
-        logo: item.logo,
-        open: item.open,
-        status: item.status,
-        type: item.type,
-        food_name: item.food_name,
-        food_rating: item.food_rating,
-        food_image: item.food_image,
-        restaurant_name: item.restaurant_name,
-        restaurant_image: item.restaurant_image,
-        restaurant_status: item.restaurant_status
-      };
-    } else {
-      // This appears to be a restaurant or generic item
-      return {
-        id: item.id,
-        name: item.name,
-        Price: parseFloat(item.Price) || 0,
-        rating: typeof item.rating === 'number' ? item.rating : parseFloat(item.rating as string) || 0,
-        image: item.image || item.avatar,
-        createdAt: item.createdAt,
-        
-        // Restaurant context for itself
-        restaurant: {
-          id: item.id,
-          name: item.name,
-          logo: item.logo,
-          status: item.status || (item.open ? "Open Now" : "Closed")
-        },
-        
-        // Additional fields
-        avatar: item.avatar,
-        logo: item.logo,
-        open: item.open,
-        status: item.status,
-        type: item.type
-      };
+
+    const rating = parseFloat((raw.food_rating || raw.rating || 0) as string);
+
+  
+    let status: "Open Now" | "Closed" = "Closed"; 
+    if (
+      raw.restaurant_status === "Open Now" ||
+      raw.status === "Open" || 
+      raw.open === true
+    ) {
+      status = "Open Now";
     }
+
+  
+    return {
+      id: raw.id,
+      name: raw.food_name || raw.name || "Unnamed Food",
+      image: raw.food_image || raw.avatar || "/placeholder.svg",
+      Price: isNaN(price) ? 0 : price,
+      rating: isNaN(rating) ? 0 : rating,
+      restaurant: { 
+        name: raw.restaurant_name || "Unknown Restaurant",
+        logo: raw.restaurant_logo || raw.logo || "/placeholder.svg",
+        status: status, 
+      },
+    };
   });
 };
 

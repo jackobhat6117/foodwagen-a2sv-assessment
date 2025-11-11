@@ -1,17 +1,32 @@
 // src/lib/types.ts
 
 // This is the "dirty" data shape we get from the API
-// (Based on your ApiItem)
 export interface ApiFood {
   id: string;
   createdAt: string;
   name: string;
-  avatar: string; // This is the main food image
+  avatar: string; // Main food image
   rating: string | number;
   open: boolean;
-  logo: string; // This is the restaurant logo
-  Price: string | number;
+  logo: string; // Restaurant logo
+  Price: string;
   image?: string;
+  price?: number;
+  type?: string;
+
+  // --- THIS IS THE UPDATE ---
+  // The API is sending a nested object, so we add it here.
+  // We make it optional (`?`) because some items might not have it.
+  restaurant?: {
+    name: string;
+    logo: string;
+    status?: "Open Now" | "Closed" | "Open"; // Can have 'status'
+    isOpen?: boolean; // Can have 'isOpen'
+  };
+  // --- END OF UPDATE ---
+  
+  // Flat properties (which we will treat as fallbacks)
+  restaurantName?: string;
   status?: "Open Now" | "Closed" | "Open";
   food_name?: string;
   food_rating?: number;
@@ -19,8 +34,6 @@ export interface ApiFood {
   restaurant_name?: string;
   restaurant_logo?: string;
   restaurant_status?: "Open Now" | "Closed" | "Open";
-  price?: number;
-  type?: string;
 }
 
 // This is the "clean" data shape our components will use
@@ -28,16 +41,17 @@ export interface CleanFood {
   id: string;
   name: string;
   image: string;
-  Price: number | number; // Always a number
+  Price: number; // Always a number
   rating: number; // Always a number
   restaurant: {
     name: string;
     logo: string;
-    status: "Open Now" | "Closed" | "Open";
+    status: "Open Now" | "Closed"; // Strict type
   };
 }
 
-// Your existing form/modal types
+// --- FORM & MODAL TYPES ---
+
 export interface FoodFormData {
   food_name: string;
   food_rating: string;
@@ -45,6 +59,10 @@ export interface FoodFormData {
   restaurant_name: string;
   restaurant_logo: string;
   restaurant_status: "Open Now" | "Closed";
+}
+
+export interface ValidationErrors {
+  [key: string]: string;
 }
 
 export interface FoodModalState {

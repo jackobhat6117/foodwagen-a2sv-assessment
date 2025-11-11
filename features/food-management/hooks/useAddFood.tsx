@@ -1,32 +1,25 @@
-"use client"
+"use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { apiClient } from "@/lib/api/client"
-import { FoodFormData } from "@/types/types"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/lib/api/client";
 
+import { toast } from "sonner";
+import { FoodFormData } from "@/types/types";
 
-const FOODS_QUERY_KEY = ["foods"]
+const FOODS_QUERY_KEY = ["foods"];
 
 export const useAddFood = () => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (formData: FoodFormData) => {
-      const foodData = {
-        name: formData.food_name,
-        price: Number.parseFloat(formData.food_image.split(":")[0] || "0"),
-        rating: Number.parseFloat(formData.food_rating),
-        image: formData.food_image,
-        restaurant: {
-          name: formData.restaurant_name,
-          logo: formData.restaurant_logo,
-          status: formData.restaurant_status,
-        },
-      }
-      return apiClient.createFood(foodData)
-    },
+    // The mutation function is now much simpler.
+    // It just passes the form data directly to the apiClient.
+    mutationFn: (data: FoodFormData) => apiClient.createFood(data),
+    
+    // We add back the toast notification on success
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: FOODS_QUERY_KEY })
+      toast.success("Food item created successfully!");
+      queryClient.invalidateQueries({ queryKey: FOODS_QUERY_KEY });
     },
-  })
-}
+  });
+};

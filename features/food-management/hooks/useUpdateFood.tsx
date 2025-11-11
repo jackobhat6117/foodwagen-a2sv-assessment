@@ -1,32 +1,25 @@
-"use client"
+"use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { apiClient } from "@/lib/api/client"
-import { FoodFormData } from "@/types/types"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/lib/api/client";
 
+import { toast } from "sonner";
+import { FoodFormData } from "@/types/types";
 
-const FOODS_QUERY_KEY = ["foods"]
+const FOODS_QUERY_KEY = ["foods"];
 
 export const useUpdateFood = () => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, formData }: { id: string; formData: FoodFormData }) => {
-      const foodData = {
-        name: formData.food_name,
-        price: Number.parseFloat(formData.food_image.split(":")[0] || "0"),
-        rating: Number.parseFloat(formData.food_rating),
-        image: formData.food_image,
-        restaurant: {
-          name: formData.restaurant_name,
-          logo: formData.restaurant_logo,
-          status: formData.restaurant_status,
-        },
-      }
-      return apiClient.updateFood(id, foodData)
-    },
+    // This is also simplified. The apiClient handles the data transformation.
+    mutationFn: (variables: { id: string; data: FoodFormData }) =>
+      apiClient.updateFood(variables.id, variables.data),
+      
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: FOODS_QUERY_KEY })
+      toast.success("Food item updated successfully!");
+      // Invalidate the cache to refetch the list
+      queryClient.invalidateQueries({ queryKey: FOODS_QUERY_KEY });
     },
-  })
-}
+  });
+};

@@ -1,3 +1,5 @@
+// src/features/food-management/components/FoodModal.tsx
+
 "use client";
 
 import type React from "react";
@@ -7,8 +9,9 @@ import { useDeleteFood } from "../hooks/useDeleteFood";
 import { FoodForm } from "./food-form";
 
 import { useAddFood } from "../hooks/useAddFood";
-import { FoodFormData } from "@/types/types";
 import { useFoodStore } from "@/lib/store/foodStore";
+import { FoodFormData } from "@/types/types";
+
 
 export const FoodModal: React.FC = () => {
   const { modal, closeModal } = useFoodStore();
@@ -20,10 +23,12 @@ export const FoodModal: React.FC = () => {
 
   const handleFormSubmit = async (data: FoodFormData) => {
     if (modal.mode === "edit" && modal.foodItem) {
+   
       await updateFoodMutation.mutateAsync({
         id: modal.foodItem.id,
-        formData: data,
+        data: data, 
       });
+   
     } else {
       await addFoodMutation.mutateAsync(data);
     }
@@ -45,7 +50,6 @@ export const FoodModal: React.FC = () => {
   };
 
   return (
-
     <div
       className="food-modal-backdrop"
       onClick={(e) => e.target === e.currentTarget && closeModal()}

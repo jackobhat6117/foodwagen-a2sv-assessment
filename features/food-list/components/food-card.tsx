@@ -47,6 +47,8 @@ export const FoodCard: React.FC<FoodCardProps> = ({ food, onEdit, onDelete }) =>
  
   const formattedPrice = `$${food.Price.toFixed(2)}`;
 
+  console.log('foods', food)
+
   return (
     <article className="food-card" data-test-id={`food-card-${food.id}`}>
       <div className="food-card-image-wrapper">

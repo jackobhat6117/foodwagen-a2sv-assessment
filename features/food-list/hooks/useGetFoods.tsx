@@ -17,9 +17,8 @@ export const useGetFoods = (searchQuery: string) => {
     queryKey: FOODS_QUERY_KEY,
     queryFn: () => apiClient.getFoods(),
     staleTime: 1000 * 60 * 5,
-    // Use 'select' to transform the raw data
     select: (rawFoods: ApiFood[]) => {
-      return rawFoods.map(normalizeFood); // Clean the data
+      return rawFoods.map(normalizeFood); 
     },
   });
 
@@ -31,7 +30,7 @@ export const useGetFoods = (searchQuery: string) => {
     staleTime: 1000 * 60 * 5,
     // Use 'select' here too
     select: (rawFoods: ApiFood[]) => {
-      return rawFoods.map(normalizeFood); // Clean the data
+      return rawFoods.map(normalizeFood); 
     },
   });
 

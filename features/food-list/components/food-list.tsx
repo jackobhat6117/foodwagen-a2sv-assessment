@@ -1,4 +1,3 @@
-// src/features/food-list/components/FoodList.tsx
 
 "use client";
 
@@ -23,6 +22,8 @@ export const FoodList: React.FC<FoodListProps> = ({ searchTerm }) => {
   
 
   const { foods, isLoading, error } = useGetFoods(searchTerm);
+
+ console.log('checkfoods', foods)
   
   const [displayCount, setDisplayCount] = useState(8);
 
@@ -33,6 +34,8 @@ export const FoodList: React.FC<FoodListProps> = ({ searchTerm }) => {
 
   const displayedFoods = foods.slice(0, displayCount);
   const hasMore = displayCount < foods.length;
+
+  console.log('displayedfoods', displayedFoods)
 
   const handleLoadMore = useCallback(() => {
     setDisplayCount((prev) => prev + 8);
