@@ -1,4 +1,4 @@
-// src/features/food-management/components/food-form.tsx
+
 
 "use client";
 
@@ -6,13 +6,13 @@ import type React from "react";
 import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 
-import { useFormValidation } from "@/lib/hooks/useFormValidation"; // Make sure path is correct
+import { useFormValidation } from "@/lib/hooks/useFormValidation"; 
 import { CleanFood, FoodFormData } from "@/types/types";
 
 interface FoodFormProps {
-  initialData?: CleanFood; // Use your clean type
+  initialData?: CleanFood; 
   onSubmit: (data: FoodFormData) => Promise<void>;
-  onClose: () => void; // For the "Cancel" button
+  onClose: () => void; 
 }
 
 const initialFormData: FoodFormData = {
@@ -21,17 +21,16 @@ const initialFormData: FoodFormData = {
   food_image: "",
   restaurant_name: "",
   restaurant_logo: "",
-  restaurant_status: "Open Now",
+  restaurant_status: "Restaurant status (open/close)",
 };
 
 export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClose }) => {
   const [formData, setFormData] = useState<FoodFormData>(initialFormData);
   const { errors, validate, clearError, clearErrors } = useFormValidation();
   
-  // --- THIS IS THE KEY ---
-  // We are in "Edit Mode" if initialData exists
+
   const isEditMode = !!initialData;
-  // --- END OF KEY ---
+
 
   const mutation = useMutation({
     mutationFn: onSubmit,
@@ -67,7 +66,7 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
       await mutation.mutateAsync(formData);
       clearErrors();
       setFormData(initialFormData);
-      onClose(); // Close modal on success
+      onClose(); 
     } catch (err) {
       console.error("Form submission error:", err);
     }
@@ -89,7 +88,7 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           name="food_name"
           value={formData.food_name}
           onChange={handleChange}
-          placeholder="Food name" // Updated placeholder
+          placeholder="Food name" 
           className={`food-input ${errors.food_name ? "error" : ""}`}
           data-test-id="food-name-input"
           aria-describedby={errors.food_name ? "food_name-error" : undefined}
@@ -115,7 +114,7 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           name="food_rating"
           value={formData.food_rating}
           onChange={handleChange}
-          placeholder="Food rating" // Updated placeholder
+          placeholder="Food rating" 
           min="1"
           max="5"
           step="0.1"
@@ -144,7 +143,7 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           name="food_image"
           value={formData.food_image}
           onChange={handleChange}
-          placeholder="Food image (link)" // Updated placeholder
+          placeholder="Food image (link)" 
           className={`food-input ${errors.food_image ? "error" : ""}`}
           data-test-id="food-image-input"
           aria-describedby={errors.food_image ? "food_image-error" : undefined}
@@ -170,7 +169,7 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           name="restaurant_name"
           value={formData.restaurant_name}
           onChange={handleChange}
-          placeholder="Restaurant name" // Updated placeholder
+          placeholder="Restaurant name" 
           className={`food-input ${errors.restaurant_name ? "error" : ""}`}
           data-test-id="restaurant-name-input"
           aria-describedby={errors.restaurant_name ? "restaurant_name-error" : undefined}
@@ -196,7 +195,7 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           name="restaurant_logo"
           value={formData.restaurant_logo}
           onChange={handleChange}
-          placeholder="Restaurant logo (link)" // Updated placeholder
+          placeholder="Restaurant logo (link)" 
           className={`food-input ${errors.restaurant_logo ? "error" : ""}`}
           data-test-id="restaurant-logo-input"
           aria-describedby={errors.restaurant_logo ? "restaurant_logo-error" : undefined}
@@ -225,6 +224,7 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           data-test-id="restaurant-status-select"
           aria-describedby={errors.restaurant_status ? "restaurant_status-error" : undefined}
         >
+          <option value="Resturant Status">Resturant Status(Open/Close)</option>
           <option value="Open Now">Open Now</option>
           <option value="Closed">Closed</option>
         </select>
@@ -235,7 +235,6 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
         )}
       </div>
 
-      {/* Side-by-side "Save" and "Cancel" buttons */}
       <div className="food-form-actions">
         <button
           type="button"
@@ -254,7 +253,6 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
         >
           {mutation.isPending
             ? (initialData ? "Saving..." : "Adding...")
-            // Use "Save" for edit mode, "Add" for add mode
             : (isEditMode ? "Save" : "Add")}
         </button>
       </div>

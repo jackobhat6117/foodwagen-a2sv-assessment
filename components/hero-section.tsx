@@ -34,7 +34,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section
 
-      className="food-hero w-full bg-[#f59e0b] py-16 md:py-24"
+      className="food-hero w-full bg-[#f59e0b] py-16 mt-16 "
       data-test-id="food-hero-section"
     >
       <div className="container mx-auto grid grid-cols-1 items-center gap-12 px-4 md:grid-cols-2">
@@ -49,7 +49,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           <div className="w-full rounded-2xl bg-white p-5 shadow-xl">
            
-            <div className="delivery-toggle flex rounded-full bg-gray-100">
+            <div className="food-delivery-toggle flex rounded-full bg-gray-100">
               <button
                 className={getToggleClasses("delivery")}
                 onClick={() => setDeliveryType("delivery")}
@@ -87,8 +87,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 opacity: 0.4
               }}
             ></div>
-            <img 
-              src="/assets/image Base.png"
+            <Image 
+              src="/assets/image-Base.png"
               width={400}
               height={400}
               alt="hero-pan-image"
@@ -96,7 +96,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               style={{
                 filter: 'drop-shadow(0 40px 50px rgba(0, 0, 0, 0.7))',
               }}
-              loading="lazy"
             />
           </div>
         </div>

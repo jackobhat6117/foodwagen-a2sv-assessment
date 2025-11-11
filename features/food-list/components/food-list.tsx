@@ -55,7 +55,7 @@ export const FoodList: React.FC<FoodListProps> = ({ searchTerm }) => {
   if (error) {
     return (
       <section className="food-featured-meals" data-test-id="food-featured-meals">
-        <div className="empty-state-message" data-test-id="food-list-error">
+        <div className="food-empty-state-message" data-test-id="food-list-error">
           <h2>Error loading meals</h2>
           <p>{error}</p>
         </div>
@@ -66,7 +66,7 @@ export const FoodList: React.FC<FoodListProps> = ({ searchTerm }) => {
   if (displayedFoods.length === 0) {
     return (
       <section className="food-featured-meals" data-test-id="food-featured-meals">
-        <div className="empty-state-message" data-test-id="food-list-empty">
+        <div className="food-empty-state-message" data-test-id="food-list-empty">
           <h2>No items available</h2>
           <p>Try searching for different meals</p>
         </div>
