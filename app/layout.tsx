@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./provider/queryClientProvider";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 
 
 const sourceSans = Source_Sans_3({
@@ -24,7 +26,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={sourceSans.className}>
         <Providers>
+          <Header />
           {children}
+
+          <Footer />
         </Providers>
       </body>
     </html>

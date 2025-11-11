@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
   
 
   return (
-    <header className="food-header">
+    <header className="food-header fixed w-full z-50 lg:mb-10">
       <div className="food-header-logo">
         <Image src="/assets/MasK Group.png" width={20} height={20} alt=""/>
         <p className="text-[#F96222]">Food<span className="text-[#FFB310]">Wagen</span></p>

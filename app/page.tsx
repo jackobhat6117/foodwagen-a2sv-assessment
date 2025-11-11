@@ -29,7 +29,7 @@ const [searchInput, setSearchInput] = useState("");
  
   return (
     <div className="">
-     <Header />
+
      <HeroSection
         searchQuery={searchInput}
         setSearchQuery={handleSearchChange}
@@ -38,7 +38,7 @@ const [searchInput, setSearchInput] = useState("");
       <FoodList 
         searchTerm={submittedSearch} 
       />
-      <Footer />
+
        <FoodModal />
     </div>
   );

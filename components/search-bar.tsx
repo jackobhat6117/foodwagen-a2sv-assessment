@@ -1,11 +1,10 @@
-// src/features/food-list/components/search-bar.tsx
+
 
 "use client";
 
 import React from "react";
 import { Search } from "lucide-react";
 
-// 1. Add the new submit function prop
 interface SearchBarProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
@@ -15,25 +14,25 @@ interface SearchBarProps {
 export const SearchBar: React.FC<SearchBarProps> = ({
   searchQuery,
   setSearchQuery,
-  onSubmitSearch, // <-- Get the new prop
+  onSubmitSearch,
 }) => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
-  // 2. Update the handleSubmit function
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmitSearch(); // <-- Call the function from the page
+    onSubmitSearch();
   };
 
   return (
     <form
-      className="food-search-form flex w-full items-center gap-3"
-      onSubmit={handleSubmit} // <-- This now triggers the search
+     
+      className="food-search-form flex w-full flex-col items-center gap-3 md:flex-row"
+      onSubmit={handleSubmit}
       data-test-id="food-search-form"
     >
-      <div className="food-search-container group flex flex-1 items-center rounded-lg bg-gray-100 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-orange-500">
+      <div className="food-search-container group flex w-full flex-1 items-center rounded-lg bg-gray-100 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-orange-500">
         <Search className="ml-3 h-5 w-5 shrink-0 text-[#F17228]" />
         <input
           type="text"
@@ -48,8 +47,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       </div>
     
       <button
-        type="submit" // <-- This triggers the form's onSubmit
-        className="food-btn-find-meal shrink-0 flex items-center gap-3 rounded-md bg-linear-to-r from-[#FF7A7A] to-[#F65900] px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+        type="submit"
+     
+        className="food-btn-find-meal w-full shrink-0 flex items-center justify-center gap-3 rounded-md bg-linear-to-r from-[#FF7A7A] to-[#F65900] px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 md:w-auto"
         data-test-id="search-submit"
       >
         <Search className="h-4 w-4 shrink-0 font-bold" />
