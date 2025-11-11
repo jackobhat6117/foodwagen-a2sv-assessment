@@ -87,15 +87,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 opacity: 0.4
               }}
             ></div>
-            <Image 
+            <img 
               src="/assets/image Base.png"
-              width={500}
-              height={500}
+              width={400}
+              height={400}
               alt="hero-pan-image"
               className="relative z-10"
               style={{
                 filter: 'drop-shadow(0 40px 50px rgba(0, 0, 0, 0.7))',
               }}
+              loading="lazy"
             />
           </div>
         </div>

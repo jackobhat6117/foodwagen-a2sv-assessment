@@ -142,6 +142,7 @@
   color: white;
   padding: 80px 24px 0;
   text-align: center;
+  height:max-content;
 }
 
 .food-hero-content {
