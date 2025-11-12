@@ -1,12 +1,9 @@
-
-
 "use client";
 
 import React, { useState } from "react";
 import { SearchBar } from "./search-bar";
 import { Motorbike, Store } from "lucide-react";
 import Image from "next/image";
-
 
 interface HeroSectionProps {
   searchQuery: string;
@@ -17,10 +14,10 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({
   searchQuery,
   setSearchQuery,
-  onSubmitSearch, 
+  onSubmitSearch,
 }) => {
   const [deliveryType, setDeliveryType] = useState<"delivery" | "pickup">(
-    "delivery",
+    "delivery"
   );
 
   const getToggleClasses = (type: "delivery" | "pickup") => {
@@ -34,7 +31,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <section
-
       className="food-hero w-full bg-[#f59e0b] py-16 mt-16 "
       data-test-id="food-hero-section"
     >
@@ -43,13 +39,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <h1 className="food-hero-title text-3xl font-bold leading-tight md:text-5xl">
             Are you starving?
           </h1>
-    
+
           <p className="mb-5 md:text-sm text-[#FFFFFF] text-sm font-light -mt-3">
             Within a few clicks, find meals that are accessible near you
           </p>
 
           <div className="w-full rounded-2xl bg-white p-5 shadow-xl">
-           
             <div className="food-delivery-toggle flex rounded-full bg-gray-100">
               <button
                 className={getToggleClasses("delivery")}
@@ -81,35 +76,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         <div className="hidden w-full items-center justify-center md:flex">
           <div className="relative">
-            <div 
+            <div
               className="absolute inset-0 -bottom-8 -z-10 transform scale-110 rounded-full bg-black/20 blur-2xl"
               style={{
-                filter: 'blur(40px)',
-                opacity: 0.4
+                filter: "blur(40px)",
+                opacity: 0.4,
               }}
             ></div>
 
-             <Image 
+            <Image
               src="/assets/hero-pan.png"
               width={400}
               height={400}
               alt="hero-pan-image"
               className="relative z-10"
               style={{
-                filter: 'drop-shadow(0 40px 50px rgba(0, 0, 0, 0.7))',
-                maxWidth: '100%',
-                height: 'auto',
+                filter: "drop-shadow(-30px 20px 40px rgba(0, 0, 0, 0.6))",
+                maxWidth: "100%",
+                height: "auto",
               }}
+              priority
             />
-
-            {/* <img 
-          src="/assets/hero-pan.png" 
-          width={400} 
-          height={400} 
-          alt="FoodWagen Logo"
-          style={{ maxWidth: '100%', height: 'auto' }}
-        /> */}
-
           </div>
         </div>
       </div>
@@ -118,8 +105,3 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 };
 
 HeroSection.displayName = "HeroSection";
-       
- 
-
-
-
