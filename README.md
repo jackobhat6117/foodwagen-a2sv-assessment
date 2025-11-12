@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🍔 FoodWagen – A2SV Web Project Assessment
 
-## Getting Started
+This is a solution for the A2SV Web Project Assessment.
+The goal was to build a functional, user-friendly web page for managing food items using Next.js and TypeScript, based on a provided Figma design.
+The application connects to a mock API to perform full CRUD (Create, Read, Update, Delete) operations and search.
 
-First, run the development server:
+🚀 Live Demo
 
-```bash
+🔗 View Deployed App on Vercel
+https://foodwagen-a2sv-assessment.vercel.app/
+
+✨ Key Features
+
+Full CRUD: Add, Edit, and Delete food items with a global modal.
+
+API-driven Search: Filter meals by name using the “Find Meal” button.
+
+Responsive Design: Fully responsive layout for mobile, tablet, and desktop.
+
+Global Notifications: Automatic success and error toasts for all API actions using Sonner.
+
+⚡ Optimized Performance
+
+Lazy Loading: The modal and its form logic are code-split and lazy-loaded with next/dynamic.
+
+
+🧱 Robust Error Handling
+
+Route-Level: Uses error.tsx for route-level UI crashes.
+
+Component-Level: Uses react-error-boundary to prevent the data list from crashing the entire page.
+
+API-Level: Uses a global QueryClient to catch and display errors for all failed API calls.
+
+🛠️ Technologies Used
+Category	Tool / Library
+Framework	Next.js 16.0.1 (App Router)
+Language	TypeScript
+UI Library	React 19.2
+Styling	Tailwind CSS & Global CSS
+Data Fetching / API State	TanStack Query (React Query) v5
+Global UI State	Zustand
+Form Handling	React Hook Form (custom validation)
+Schema Validation	Zod
+Testing	Vitest, React Testing Library (RTL), Mock Service Worker (MSW)
+Notifications	Sonner
+Icons	Lucide-react
+🏃 How to Run Locally
+1️⃣ Clone the Repository
+git clone [Your Repository URL]
+cd [your-repo-name]
+
+2️⃣ Install Dependencies
+npm install
+
+3️⃣ Create Environment File
+
+Create a .env file in the root directory and add the following line:
+
+NEXT_PUBLIC_API_BASE_URL="https://6852821e0594059b23cdd834.mockapi.io"
+
+4️⃣ Run the Development Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Then open http://localhost:3000
+ in your browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🧪 Running Tests
 
-## Learn More
+This project uses Vitest for unit and integration testing.
+To run all tests:
 
-To learn more about Next.js, take a look at the following resources:
+npm run test
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🧠 Challenges Faced & Solutions
+🧩 Challenge 1: Inconsistent & “Dirty” API Data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Problem:
+The mock API returned inconsistent data:
 
-## Deploy on Vercel
+Some items had flat properties (restaurantName), others had nested ones (restaurant.name).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Mixed data types (e.g., "price": "15.99" vs rating: 4.5).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Boolean status represented in multiple ways (open: true, status: "Open", restaurant.isOpen: true).
+
+Solution – Data Normalization:
+Implemented a normalizeFood utility that transforms inconsistent ApiFood objects into a clean CleanFood format.
+We applied this transformation via the select option inside the useGetFoods TanStack Query hook — ensuring UI components always receive normalized, predictable data.
+
+🔄 Challenge 2: Stale Data After Mutations
+
+Problem:
+After adding, updating, or deleting an item, the API succeeded, but the page displayed stale data.
+
+Solution – Query Invalidation:
+Used useMutation for CUD operations and called
+
+queryClient.invalidateQueries({ queryKey: ["foods"] })
+
+
+inside onSuccess.
+This forced TanStack Query to refetch the latest data, keeping the UI perfectly in sync.
+
+🔔 Challenge 3: Global Error & Success Feedback
+
+Problem:
+We needed a unified feedback system for all API actions without repeating toast logic everywhere.
+
+Solution – Global QueryClient Configuration:
+Configured a central QueryClient in src/lib/query-client.ts with:
+
+queryCache.onError → handles failed queries globally.
+
+defaultOptions.mutations.onError / .onSuccess → handles all mutation feedback.
+
+This centralized toast logic using Sonner, making the components cleaner and reducing repetition.
