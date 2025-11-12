@@ -89,7 +89,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               }}
             ></div>
 
-            <Image src="/assets/image-base.png" alt="hero-pan-image" width={400} height={400} />
+            <img 
+          src="/assets/header-logo.png" 
+          width={20} 
+          height={20} 
+          alt="FoodWagen Logo"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
 
           </div>
         </div>
