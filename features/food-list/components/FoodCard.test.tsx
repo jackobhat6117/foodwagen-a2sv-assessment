@@ -1,8 +1,8 @@
 import React from "react";
 import { render, screen } from "@/testing/test-utils"; 
 import { FoodCard } from "./food-card"; 
-import "@testing-library/jest-dom";
 import { CleanFood } from "@/types/types";
+import { vi } from "vitest";
 
 
 const mockFood: CleanFood = {
@@ -18,8 +18,8 @@ const mockFood: CleanFood = {
   },
 };
 
-const mockEdit = jest.fn();
-const mockDelete = jest.fn();
+const mockEdit = vi.fn();
+const mockDelete = vi.fn();
 
 describe("FoodCard - Component Rendering", () => {
   it("renders all food properties correctly", () => {
@@ -33,7 +33,7 @@ describe("FoodCard - Component Rendering", () => {
     expect(screen.getByText("⭐ 4.7")).toBeInTheDocument();
     expect(screen.getByText("Test Restaurant")).toBeInTheDocument();
 
-    // Verify using the required data-test-id convention
+    // Verify using the required data-test-id convention (component uses data-test-id with hyphen)
     expect(screen.getByTestId("food-card-1")).toBeInTheDocument();
     expect(screen.getByTestId("food-status-1")).toHaveTextContent("Open Now");
     expect(screen.getByTestId("food-status-1")).toHaveClass("open");

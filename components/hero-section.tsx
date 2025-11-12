@@ -4,8 +4,8 @@
 
 import React, { useState } from "react";
 import { SearchBar } from "./search-bar";
-import { Motorbike, Store } from "lucide-react"; 
-import Image from "next/image";
+import { Motorbike, Store } from "lucide-react";
+
 
 interface HeroSectionProps {
   searchQuery: string;
@@ -87,7 +87,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 opacity: 0.4
               }}
             ></div>
-            <Image 
+            {/* Using regular img tag for better Vercel compatibility with static assets */}
+            <img 
               src="/assets/image-base.png"
               width={400}
               height={400}
@@ -95,6 +96,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               className="relative z-10"
               style={{
                 filter: 'drop-shadow(0 40px 50px rgba(0, 0, 0, 0.7))',
+                maxWidth: '100%',
+                height: 'auto',
               }}
             />
           </div>

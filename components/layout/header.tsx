@@ -4,7 +4,6 @@
 
 import type React from "react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { useFoodStore } from "@/lib/store/foodStore";
 
 
@@ -21,7 +20,13 @@ export const Header: React.FC = () => {
       "
     >
       <div className="food-header-logo flex items-center gap-2">
-        <Image src="/assets/header-logo.png" width={20} height={20} alt="" />
+        <img 
+          src="/assets/header-logo.png" 
+          width={20} 
+          height={20} 
+          alt="FoodWagen Logo"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
         <p className="text-lg font-bold text-[#F96222]">
           Food<span className="text-[#FFB310]">Wagen</span>
         </p>

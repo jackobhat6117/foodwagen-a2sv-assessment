@@ -3,12 +3,12 @@
 import React from "react";
 import { render, screen } from "@/testing/test-utils";
 import userEvent from "@testing-library/user-event";
+import { vi, beforeEach } from "vitest";
 import { FoodForm } from "./food-form"; 
-import "@testing-library/jest-dom";
 
 // Mock the dependencies
-const mockSubmit = jest.fn(() => Promise.resolve());
-const mockClose = jest.fn();
+const mockSubmit = vi.fn(() => Promise.resolve());
+const mockClose = vi.fn();
 
 // Create a user instance for realistic event simulation
 const user = userEvent.setup();

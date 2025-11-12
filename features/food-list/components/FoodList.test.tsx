@@ -1,11 +1,9 @@
 
-
 import React from "react";
 import { render, screen } from "@/testing/test-utils";
 import { FoodList } from "./food-list"; 
 import { server } from "@/testing/mocks/server";
 import { errorHandlers, mockFoods } from "@/testing/mocks/handlers";
-import "@testing-library/jest-dom";
 
 
 
@@ -19,12 +17,14 @@ describe("FoodList - API Mocking", () => {
     expect(screen.getByTestId("food-list-loading")).toBeInTheDocument();
 
 
+    // The component displays food_name if available, otherwise name
+    // First item has food_name: "fqdfv", second item doesn't have food_name so uses name
     expect(
-      await screen.findByText(mockFoods[0].name),
+      await screen.findByText(mockFoods[0].food_name || mockFoods[0].name),
     ).toBeInTheDocument();
 
     expect(
-      await screen.findByText(mockFoods[1].name), 
+      await screen.findByText(mockFoods[1].food_name || mockFoods[1].name), 
     ).toBeInTheDocument();
 
 
@@ -47,7 +47,7 @@ describe("FoodList - API Mocking", () => {
 
     // 2. Check that no food items are rendered
     expect(
-      screen.queryByText(mockFoods[0].name),
+      screen.queryByText(mockFoods[0].food_name || mockFoods[0].name),
     ).not.toBeInTheDocument();
   });
 });

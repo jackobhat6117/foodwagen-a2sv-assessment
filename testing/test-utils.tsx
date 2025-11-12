@@ -1,8 +1,11 @@
 // src/testing/test-utils.tsx
 
 import React, { ReactElement, useState } from "react";
-import { render, RenderOptions } from "@testing-library/react";
+import { render, RenderOptions, configure } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Configure Testing Library to recognize data-test-id as a valid test ID
+configure({ testIdAttribute: 'data-test-id' });
 
 // Create a new QueryClient for each test run to isolate tests
 const createTestQueryClient = () =>
