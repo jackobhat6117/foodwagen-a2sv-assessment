@@ -44,9 +44,9 @@ export const FoodModal: React.FC = () => {
   };
 
   const getModalTitle = () => {
-    if (modal.mode === "add") return "Add a meal";
-    if (modal.mode === "edit") return "Edit meal";
-    return "Delete meal";
+    if (modal.mode === "add") return "Add Food";
+    if (modal.mode === "edit") return "Edit Food";
+    return "Delete Food";
   };
 
   return (

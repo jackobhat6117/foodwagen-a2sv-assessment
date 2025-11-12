@@ -91,10 +91,10 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           placeholder="Food name" 
           className={`food-input ${errors.food_name ? "error" : ""}`}
           data-test-id="food-name-input"
-          aria-describedby={errors.food_name ? "food_name-error" : undefined}
+          aria-describedby={errors.food_name ? "food-name-error" : undefined}
         />
         {errors.food_name && (
-          <div id="food_name-error" className="food-error-message" data-test-id="food-name-error">
+          <div id="food-name-error" className="food-error-message" data-test-id="food-name-error">
             {errors.food_name}
           </div>
         )}
@@ -120,10 +120,10 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           step="0.1"
           className={`food-input ${errors.food_rating ? "error" : ""}`}
           data-test-id="food-rating-input"
-          aria-describedby={errors.food_rating ? "food_rating-error" : undefined}
+          aria-describedby={errors.food_rating ? "food-rating-error" : undefined}
         />
         {errors.food_rating && (
-          <div id="food_rating-error" className="food-error-message" data-test-id="food-rating-error">
+          <div id="food-rating-error" className="food-error-message" data-test-id="food-rating-error">
             {errors.food_rating}
           </div>
         )}
@@ -146,10 +146,10 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           placeholder="Food image (link)" 
           className={`food-input ${errors.food_image ? "error" : ""}`}
           data-test-id="food-image-input"
-          aria-describedby={errors.food_image ? "food_image-error" : undefined}
+          aria-describedby={errors.food_image ? "food-image-error" : undefined}
         />
         {errors.food_image && (
-          <div id="food_image-error" className="food-error-message" data-test-id="food-image-error">
+          <div id="food-image-error" className="food-error-message" data-test-id="food-image-error">
             {errors.food_image}
           </div>
         )}
@@ -172,10 +172,10 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           placeholder="Restaurant name" 
           className={`food-input ${errors.restaurant_name ? "error" : ""}`}
           data-test-id="restaurant-name-input"
-          aria-describedby={errors.restaurant_name ? "restaurant_name-error" : undefined}
+          aria-describedby={errors.restaurant_name ? "restaurant-name-error" : undefined}
         />
         {errors.restaurant_name && (
-          <div id="restaurant_name-error" className="food-error-message" data-test-id="restaurant-name-error">
+          <div id="restaurant-name-error" className="food-error-message" data-test-id="restaurant-name-error">
             {errors.restaurant_name}
           </div>
         )}
@@ -198,10 +198,10 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           placeholder="Restaurant logo (link)" 
           className={`food-input ${errors.restaurant_logo ? "error" : ""}`}
           data-test-id="restaurant-logo-input"
-          aria-describedby={errors.restaurant_logo ? "restaurant_logo-error" : undefined}
+          aria-describedby={errors.restaurant_logo ? "restaurant-logo-error" : undefined}
         />
         {errors.restaurant_logo && (
-          <div id="restaurant_logo-error" className="food-error-message" data-test-id="restaurant-logo-error">
+          <div id="restaurant-logo-error" className="food-error-message" data-test-id="restaurant-logo-error">
             {errors.restaurant_logo}
           </div>
         )}
@@ -222,14 +222,14 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           onChange={handleChange}
           className={`food-select ${errors.restaurant_status ? "error" : ""}`}
           data-test-id="restaurant-status-select"
-          aria-describedby={errors.restaurant_status ? "restaurant_status-error" : undefined}
+          aria-describedby={errors.restaurant_status ? "restaurant-status-error" : undefined}
         >
           <option value="Resturant Status">Resturant Status(Open/Close)</option>
           <option value="Open Now">Open Now</option>
           <option value="Closed">Closed</option>
         </select>
         {errors.restaurant_status && (
-          <div id="restaurant_status-error" className="food-error-message" data-test-id="restaurant-status-error">
+          <div id="restaurant-status-error" className="food-error-message" data-test-id="restaurant-status-error">
             {errors.restaurant_status}
           </div>
         )}
@@ -252,7 +252,7 @@ export const FoodForm: React.FC<FoodFormProps> = ({ initialData, onSubmit, onClo
           data-test-id="food-form-submit"
         >
           {mutation.isPending
-            ? (initialData ? "Saving..." : "Adding...")
+            ? (initialData ? "Updating Food..." : "Adding Food...")
             : (isEditMode ? "Save" : "Add")}
         </button>
       </div>
