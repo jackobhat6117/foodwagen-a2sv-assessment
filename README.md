@@ -21,7 +21,8 @@ Global Notifications: Automatic success and error toasts for all API actions usi
 
 ⚡ Optimized Performance
 
-Lazy Loading: The modal and its form logic are code-split and lazy-loaded with next/dynamic.
+- Image optimization
+- use tanstackquery to memoization and caching
 
 
 🧱 Robust Error Handling
