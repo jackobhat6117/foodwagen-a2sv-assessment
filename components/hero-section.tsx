@@ -90,9 +90,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             ></div>
 
             <img 
-          src="/assets/header-logo.png" 
-          width={20} 
-          height={20} 
+          src="/assets/hero-pan.png" 
+          width={400} 
+          height={400} 
           alt="FoodWagen Logo"
           style={{ maxWidth: '100%', height: 'auto' }}
         />
