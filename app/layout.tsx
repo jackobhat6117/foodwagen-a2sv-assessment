@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
 import { Providers } from "./provider/queryClientProvider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
