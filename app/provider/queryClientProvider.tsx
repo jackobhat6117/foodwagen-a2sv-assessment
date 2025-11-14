@@ -4,7 +4,7 @@
 
 import { QueryClientProvider } from "@tanstack/react-query";
 
-import { Toaster } from "sonner"; // Import the Toaster component
+import { Toaster } from "sonner"; 
 import { useState } from "react";
 import { queryClient } from "@/lib/api/queryClient";
 
