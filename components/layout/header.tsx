@@ -1,4 +1,3 @@
-// src/features/food-list/components/header.tsx (or wherever it is)
 
 "use client";
 
